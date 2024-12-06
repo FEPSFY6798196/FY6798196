@@ -39,6 +39,95 @@
      margin-left: 250px;
    }
  </style>
+<div id="last-updated">Loading last update time...</div>
+
+<!-- Verify Button -->
+<button onclick="verifyLastUpdatedTime()" style="display: block; margin: 10px auto; padding: 8px 16px;">
+    Verify Last Modified Time
+</button>
+
+<script>
+    async function getLastUpdatedTime() {
+        const username = 'FEPSFY6798196';
+        const repo = 'FY6798196';
+        const url = `https://api.github.com/repos/${username}/${repo}/commits`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.status} - ${response.statusText}`);
+            }
+
+            const commits = await response.json();
+            if (commits && commits.length) {
+                const lastCommitDate = new Date(commits[0].commit.committer.date);
+                // Displaying the time on load
+                document.getElementById('last-updated').innerText = `Last Modified Time: ${lastCommitDate.toLocaleString()}`;
+            } else {
+                document.getElementById('last-updated').innerText = 'No commits found in the repository.';
+            }
+        } catch (error) {
+            console.error('Error fetching the last updated time:', error);
+            document.getElementById('last-updated').innerText = 'Error fetching update time. Please check the repository details.';
+        }
+    }
+
+    
+    async function verifyLastUpdatedTime() {
+        document.getElementById('last-updated').innerText = 'Verifying...';
+        await getLastUpdatedTime();
+        alert("Last modified time has been successfully verified from GitHub API.");
+    }
+
+    
+    window.onload = getLastUpdatedTime;
+</script>
+<p id="totalWordCount"></p>
+<hr>
+
+<script>
+    
+    function displayWordCount(sectionId, outputId) {
+        
+        const text = document.getElementById(sectionId).textContent;
+
+        
+        const wordArray = text.trim().split(/\\s+/);
+
+        
+        const wordCount = wordArray.length;
+
+        
+        return wordCount;
+    }
+
+    
+    function displayTotalWordCount() {
+        
+        const IntroductionCount = displayWordCount("Introduction_InText");
+        const TechnologicalAdvancementsandEfficiencyCount = displayWordCount("Technological Advancements and Efficiency_InText");
+        const EnvironmentalImpactCount = displayWordCount("Environmental Impact_InText");
+        const PassengerComfortandExperienceCount = displayWordCount("Passenger Comfort and Experience_InText");
+        const OperationalFlexibilityforAirlinesCount = displayWordCount("Operational Flexibility for Airlines_InText");
+        const CompetitiveLandscapeMarketInfluenceandFutureImplicationsCount = displayWordCount("Competitive Landscape, Market Influence and Future Implications_InText");
+        const ConclusionCount = displayWordCount("Conclusion_InText");
+       
+      
+        const totalWordCount = IntroductionCount + TechnologicalAdvancementsandEfficiencyCount + EnvironmentalImpactCount + PassengerComfortandExperienceCount + OperationalFlexibilityforAirlinesCount + CompetitiveLandscapeMarketInfluenceandFutureImplicationsCount + ConclusionCount;
+
+        // Display the total word count
+        document.getElementById("totalWordCount").innerText = `Total word count: ${totalWordCount}`;
+    }
+
+    // Run the function for specific sections and display total count when the page loads
+    window.onload = displayTotalWordCount;
+</script>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -109,51 +198,54 @@
 
     <p>This essay explores how the A350 has revolutionized the aviation sector across multiple dimensions, including efficiency, environmental impact, passenger experience, and airline operations, featuring advanced materials like carbon-fiber-reinforced polymers and powered by Rolls-Royce Trent XWB engines, it offers significant improvements in fuel economy and environmental sustainability</p>
 
-  <h1>Introudction</h1>
-    
+  <h1 id="Introduction">Introudction</h1>
+    <pre id="Introduction_InText">
     <p>The Airbus A350, introduced by Airbus as a response to the growing demand for efficient, long-haul aircraft, has significantly transformed the aviation industry since its entry into service in 2015. With its groundbreaking technologies, enhanced fuel efficiency, and passenger comfort innovations, the A350 has set new standards for modern air travel. </p>
-
-   <h2>Technological Advancements and Efficiency</h2>
+    </pre>
     
+   <h2 id="Technological Advancements and Efficiency">Technological Advancements and Efficiency</h2>
+    <pre id="Technological Advancements and Efficiency_InText">
     <p>One of the most notable contributions of the A350 to the aviation industry is its incorporation of advanced materials and cutting-edge engineering. The aircraft’s fuselage and wings are made of carbon-fiber-reinforced polymer (CFRP), a material that is lighter and stronger than traditional aluminum. This design choice reduces the aircraft’s weight, improves fuel efficiency, and extends its operational range.</p>
-    
     <p>The A350 is powered by Rolls-Royce Trent XWB engines, which are among the most efficient engines in the world. These engines consume up to 25% less fuel compared to previous-generation aircraft of similar size, such as the Airbus A340 or the Boeing 777-200. This improvement in fuel efficiency translates directly into lower operating costs for airlines and a reduced environmental footprint.</p>
-    
     <p>Additionally, the A350 features advanced aerodynamics, including wing designs that automatically adjust to reduce drag during flight. These technologies not only enhance the aircraft’s performance but also contribute to its quiet operation, making it a preferred choice for airlines operating in noise-sensitive airports.</p>
-
-  <h3>Environmental Impact</h3>
+    </pre>
+      
+  <h3 id="Environmental Impact">Environmental Impact</h3>
+      <pre id="Environmental Impact_InText">
 
     <p>The aviation industry has long faced criticism for its contribution to global greenhouse gas emissions. The A350 has been a step forward in addressing these concerns. By burning less fuel per passenger, the A350 significantly reduces carbon dioxide emissions. Airbus estimates that the A350 emits about 2.5 liters of fuel per 100 kilometers per passenger, making it one of the most environmentally friendly wide-body aircraft in service.</p>
-    
     <p>Moreover, the aircraft’s quieter engines help minimize noise pollution, aligning with stricter regulations and community expectations near airports. The A350’s ability to reduce both noise and emissions has allowed airlines to operate more sustainably, meeting environmental targets and improving their public image.</p>
-
-  <h4>Passenger Comfort and Experience</h4>
+      </pre>
+      
+  <h4 id="Passenger Comfort and Experience">Passenger Comfort and Experience</h4>
+        <pre id="Passenger Comfort and Experience_InText">
 
     <p>The A350 has set a new benchmark for passenger comfort, addressing key concerns about long-haul travel fatigue and overall satisfaction. The aircraft features a spacious cabin with wider seats, larger windows, and high ceilings, creating an open and inviting environment. Airbus has also implemented advanced air conditioning and air filtration systems that improve air quality and maintain optimal cabin pressure, equivalent to an altitude of 6,000 feet. These features contribute to reduced passenger fatigue and a more comfortable journey.</p>
-
     <p>The A350’s lighting system is another notable innovation. It uses LED lighting that can mimic natural light cycles, helping passengers adjust to time zone changes and combat jet lag. Airlines operating the A350, such as Qatar Airways and Singapore Airlines, have also taken advantage of the aircraft’s design to introduce luxurious amenities, including lie-flat seats, suites, and state-of-the-art in-flight entertainment systems, making the A350 a favorite among premium travelers.</p>
-
-  <h5>Operational Flexibility for Airlines</h5>
+        </pre>
+          
+  <h5 id="Operational Flexibility for Airlines">Operational Flexibility for Airlines</h5>
+          <pre id="Operational Flexibility for Airlines_InText">
 
     <p>The A350’s versatility has reshaped airline operations, particularly for long-haul routes. With its extended range capabilities, the A350-900 can fly up to 15,000 kilometers, while the A350-1000 variant can cover even longer distances. This range has enabled airlines to open new direct routes, connecting cities that previously required layovers or multiple flights. For example, Singapore Airlines uses the A350 for its non-stop flights between Singapore and New York, one of the longest commercial flights in the world.</p>
-
     <p>The aircraft’s fuel efficiency and operational reliability have also made it an economically attractive choice for airlines. Lower maintenance costs, coupled with reduced fuel consumption, provide substantial savings over the lifespan of the aircraft. As a result, airlines can remain competitive while offering passengers lower fares and more route options.</p>
   
-  <h6>Competitive Landscape, Market Influence and Future Implications</h6>
+  <h6 id="Competitive Landscape, Market Influence and Future Implications">Competitive Landscape, Market Influence and Future Implications</h6>
+            <pre id="Competitive Landscape, Market Influence and Future Implications_InText">
 
     <p>The introduction of the A350 has intensified competition in the wide-body aircraft market, challenging Boeing’s dominance with its 787 Dreamliner. While the Dreamliner was the first to pioneer extensive use of composite materials, the A350 has matched and, in some aspects, surpassed its rival. Airlines often compare these two models when making purchasing decisions, benefiting from technological advancements and cost reductions driven by competition.
-
 The A350’s success has also influenced aircraft manufacturers to focus more on sustainability and passenger comfort. For instance, Boeing’s development of the 777X and the rumored updates to the 787 series reflect the industry’s commitment to maintaining competitiveness in an evolving market.</p>
-
     <p>As the aviation industry continues to recover from the effects of the COVID-19 pandemic, the A350’s role is likely to expand further. Its efficiency and operational range make it well-suited for the rebound in international travel, particularly as airlines seek to maximize profits on fewer flights. Additionally, the A350’s focus on sustainability aligns with growing regulatory and consumer demands for environmentally responsible air travel.
-
 Airbus is also investing in research and development to enhance the A350’s capabilities further. Future iterations may include hydrogen-powered versions or hybrid models, aligning with the aviation industry’s push toward carbon neutrality by 2050. Such innovations could cement the A350’s legacy as a transformative aircraft for decades to come.</p>
-
-  <h7>Conclusion</h7>
+            </pre>
+            
+  <h7 id="Conclusion">Conclusion</h7>
+              <pre id="Conclusion_InText">
 
     <p>The Airbus A350 has undeniably changed the aviation industry. Its advancements in fuel efficiency, environmental performance, passenger comfort, and operational flexibility have set new benchmarks for modern aircraft. By enabling airlines to operate more sustainably and efficiently, the A350 has addressed some of the most pressing challenges facing the industry today. As aviation continues to evolve, the A350’s influence is likely to endure, shaping the future of air travel and inspiring the next generation of aircraft designs.</p>
 
-
+              </pre>
+            
   <h8>Refrences</h8>
     <p>Airbus (2021a). A350 Less Weight. Less Fuel. More Sustainable. | A350 | Aircraft | Airbus Aircraft. [online] aircraft.airbus.com. Available at: https://aircraft.airbus.com/en/aircraft/a350-clean-sheet-clean-start/a350-less-weight-less-fuel-more-sustainable.</p>
     
